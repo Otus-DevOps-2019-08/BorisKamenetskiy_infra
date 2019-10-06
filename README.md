@@ -1,6 +1,7 @@
 # BorisKamenetskiy_infra
 BorisKamenetskiy Infra repository
 
+2019-10-06
 Added following config to reach someinternalhost through the bastion host:
 Host *
   IdentityFile ~/.ssh/id_ecdsa
