@@ -34,3 +34,8 @@ gcloud compute instances create reddit-app\
 
 Firewall rule:
 gcloud compute firewall-rules create default-puma-server --allow tcp:9292 --target-tags puma-server
+
+Connection data:
+testapp_IP = 34.76.124.126
+testapp_port = 9292
+
