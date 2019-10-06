@@ -12,3 +12,7 @@ Host someinternalhost
   Hostname 10.132.0.4
   ProxyCommand ssh bastion -W %h:%p
   LocalForward 8080 127.0.0.1:8080
+
+bastion_IP = 35.210.154.75
+someinternalhost_IP = 10.132.0.4
+
