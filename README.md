@@ -17,7 +17,7 @@ bastion_IP = 35.210.154.75
 someinternalhost_IP = 10.132.0.4
 
 2019-10-07
-Added following scripts to config new instance in gcloud
+Added following scripts to config new instance in google cloud
 install_ruby.sh
 install_mongodb.sh
 deploy.sh
