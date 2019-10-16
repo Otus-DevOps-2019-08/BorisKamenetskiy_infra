@@ -7,14 +7,14 @@ Host *
   IdentityFile ~/.ssh/id_ecdsa
   User ubuntu
 Host bastion
-  Hostname 35.210.154.75
+  Hostname 35.242.200.16
 Host someinternalhost
-  Hostname 10.132.0.4
+  Hostname 10.156.0.3
   ProxyCommand ssh bastion -W %h:%p
   LocalForward 8080 127.0.0.1:8080
 
-bastion_IP = 35.210.154.75
-someinternalhost_IP = 10.132.0.4
+bastion_IP = 35.242.200.16
+someinternalhost_IP = 10.156.0.3
 
 2019-10-07
 Added following scripts to config new instance in gcloud
