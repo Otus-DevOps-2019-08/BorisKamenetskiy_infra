@@ -39,3 +39,10 @@ Connection data:
 testapp_IP = 34.76.124.126
 testapp_port = 9292
 
+2019-10-19
+What was done:
+- ADC installed;
+- packer template created in ubuntu16.json file:
+  - builder for ubuntu-1604 image with parameterized project_id (required), source_image_family (required), machine_type, image_description, disk_size, disk_type, network, tags. Required variables are set in variables.json file;
+  - provisioner, which installs ruby and MongoDb. 
+
