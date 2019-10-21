@@ -39,3 +39,14 @@ Connection data:
 testapp_IP = 34.76.124.126
 testapp_port = 9292
 
+2019-10-19
+What was done:
+- ADC installed;
+- packer template created in ubuntu16.json file:
+  - builder for ubuntu-1604 image with parameterized project_id (required), source_image_family (required), machine_type, image_description, disk_size, disk_type, network, tags. Required variables are set in variables.json file;
+  - provisioner, which installs ruby and MongoDb;
+  - added new json script immutable.json for homework with star;
+  - added script monolith.sh for deployment of the application on the remote machine;
+  - puma service file created and added to /etc/systemd/system. In provisioner this file is copied to the remote machine to be able to run puma service there;
+  - created script create-reddit-vm.sh to run virtual machine from the created reddit-full image, created startup script - start_puma.sh. 
+
