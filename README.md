@@ -57,5 +57,15 @@ What was done (homework terraform-1):
 - variables for parameterizing of main.tf created for project, public_key_path, private_key_path, disk_image, zone. Additional file variables.tf to add input variables is added. For zone default value is added. File terraform.tfvars is created to define some of those variables;
 - file terraform.tfvars.example added;
 - .gitignore appended in accordance with homework task;
-- application works - tested by trying http://35.198.68.63:9292/.
+- application works - tested by trying http://35.198.68.63:9292/;
+- task with *: added 3 google_compute_project_metadata_items for appuser1, appuser2, appuser 3. I had to choose different names for all of them. Keys successfully added to the metadata in GCloud GUI;
+- via GUI added appuser_web - no issues with terraform apply.
 
+Issues observed:
+- needed to degrade terraform version from 0.12.12 to 0.12.8. Link in the homework is to the newest version - not the same as in homework;
+- obtained following error in the end of terraform apply stdout:
+"google_compute_instance.app (remote-exec): Post-install message from capistrano3-puma:
+google_compute_instance.app (remote-exec):     All plugins need to be explicitly installed with install_plugin.
+google_compute_instance.app (remote-exec):     Please see README.md
+google_compute_instance.app (remote-exec): Failed to execute operation: Invalid argument
+Error: error executing "/tmp/terraform_1756125471.sh": Process exited with status 1" - don't understand, how to resolve it, though application works at http://35.198.68.63:9292/.
