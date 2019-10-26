@@ -50,3 +50,12 @@ What was done:
   - puma service file created and added to /etc/systemd/system. In provisioner this file is copied to the remote machine to be able to run puma service there;
   - created script create-reddit-vm.sh to run virtual machine from the created reddit-full image, created startup script - start_puma.sh. 
 
+2019-10-27
+What was done (homework terraform-1):
+- new branch terraform-1 created;
+- main configuration file created, there we have creation of google compute instance, firewall rule, provisioners to deploy our application and start puma server on the target machine;
+- variables for parameterizing of main.tf created for project, public_key_path, private_key_path, disk_image, zone. Additional file variables.tf to add input variables is added. For zone default value is added. File terraform.tfvars is created to define some of those variables;
+- file terraform.tfvars.example added;
+- .gitignore appended in accordance with homework task;
+- application works - tested by trying http://35.198.68.63:9292/.
+
