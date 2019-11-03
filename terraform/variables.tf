@@ -22,4 +22,9 @@ variable zone {
   # Значение по умолчанию
   default = "europe-west3-c"
 }
+variable inst_count {
+  description = "Number of instances"
+  # Значение по умолчанию
+  default = 1
+}
 

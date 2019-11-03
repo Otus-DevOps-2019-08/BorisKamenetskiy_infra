@@ -10,5 +10,5 @@ ExecStart=/bin/bash -lc 'puma'
 Restart=always
 
 [Install]
-WantedBy=multi-user.target`
+WantedBy=multi-user.target
 

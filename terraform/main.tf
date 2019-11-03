@@ -29,10 +29,11 @@ resource "google_compute_project_metadata_item" "appuser3"{
 }
 
 resource "google_compute_instance" "app" {
-  name         = "reddit-app"
+  count = var.inst_count
+  name         = "reddit-app${count.index}"
   machine_type = "g1-small"
   zone         = var.zone
-  tags         = ["reddit-app"]
+  tags         = ["reddit-app","allow-health-checks"]
   boot_disk {
     initialize_params {
       image = var.disk_image
@@ -81,5 +82,12 @@ resource "google_compute_firewall" "firewall_puma" {
   source_ranges = ["0.0.0.0/0"]
   # Правило применимо для инстансов с перечисленными тэгами
   target_tags = ["reddit-app"]
+}
+
+resource "google_compute_instance_group" "test" {
+  name = "terraform-test"
+  zone = var.zone
+
+  instances = "${google_compute_instance.app.*.self_link}"
 }
 
