@@ -18,6 +18,7 @@ resource "google_compute_url_map" "urlmap" {
 
 resource "google_compute_backend_service" "default" {
   name          = "backend-service"
+  port_name     = "puma"
   health_checks = ["${google_compute_health_check.http-health-check.self_link}"]
 
   backend {
@@ -40,29 +41,14 @@ resource "google_compute_firewall" "firewall_health_checks" {
   target_tags = ["allow-health-checks"]
 }
 
-# resource "google_compute_http_health_check" "http-health-check" {
-#  name               = "http-health-check"
-#  request_path       = "/"
-#  check_interval_sec = 1
-#  timeout_sec        = 1
-#}
-
 resource "google_compute_health_check" "http-health-check" {
-  name = "http-health-check"
-  description = "Health check via http"
+ name = "http-health-check"
 
-  timeout_sec         = 1
-  check_interval_sec  = 1
-  healthy_threshold   = 4
-  unhealthy_threshold = 5
+ timeout_sec        = 1
+ check_interval_sec = 1
 
-  http_health_check {
-    port_name = "health-check-port"
-    port_specification = "USE_NAMED_PORT"
-    # host = "1.2.3.4"
-    request_path = "/"
-    proxy_header = "NONE"
-    response = "I AM HEALTHY"
-  }
+ http_health_check {
+   port = 9292
+ }
 }
 

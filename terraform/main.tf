@@ -89,5 +89,10 @@ resource "google_compute_instance_group" "test" {
   zone = var.zone
 
   instances = "${google_compute_instance.app.*.self_link}"
+
+ named_port {
+    name = "puma"
+    port = "9292"
+  }
 }
 

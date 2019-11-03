@@ -59,7 +59,10 @@ What was done (homework terraform-1):
 - .gitignore appended in accordance with homework task;
 - application works - tested by trying http://35.198.68.63:9292/;
 - task with *: added 3 google_compute_project_metadata_items for appuser1, appuser2, appuser 3. I had to choose different names for all of them. Keys successfully added to the metadata in GCloud GUI;
-- via GUI added appuser_web - no issues with terraform apply.
+- via GUI added appuser_web - no issues with terraform apply;
+- now added second instance 35.235.47.25. puma service works on both instances;
+- adding loadbalancer 34.102.189.35 (file lb.tf): google_compute_global_forwarding_rule, google_compute_target_http_proxy, google_compute_url_map, google_compute_backend_service (which was connected to google_compute_instance_group with both instances enlisted and to google_compute_health_check), ip address of the loadbalancer was added to output.tf (ip_address taken from google_compute_global_forwarding_rule);
+- I have added inst_count variable to variables.tf with default value, equal to 1 and also to terraform.tfvars and terraform.tfvars.example, where defined inst_count = 2. Then I have created both compute instances using count. I had to add ${count.index} to the name field inside the google_compute_instance. Also I havechanged how instances are described in google_compute_inctance_group:  instances = "${google_compute_instance.app.*.self_link}". The most difficult thing was tooutput ip's of instances, which were obtained using count. Finally I have done it as it is visible in outputs.tf.
 
 Issues observed:
 - needed to degrade terraform version from 0.12.12 to 0.12.8. Link in the homework is to the newest version - not the same as in homework;
@@ -68,4 +71,9 @@ Issues observed:
 google_compute_instance.app (remote-exec):     All plugins need to be explicitly installed with install_plugin.
 google_compute_instance.app (remote-exec):     Please see README.md
 google_compute_instance.app (remote-exec): Failed to execute operation: Invalid argument
-Error: error executing "/tmp/terraform_1756125471.sh": Process exited with status 1" - don't understand, how to resolve it, though application works at http://35.198.68.63:9292/.
+Error: error executing "/tmp/terraform_1756125471.sh": Process exited with status 1" - don't understand, how to resolve it, though application works at http://35.198.68.63:9292/. This error was because of unneeded "'" in puma.service file, hence, "enable puma.service" didn't work;
+- I had a lot of issues with health checks - they didn't pass. The reason was I needed to use google_compute_health_check with specified port 9292;
+- Also I observed an issue with not reaching puma servie via load balancer IP. That was because I didn't add port_name in google_compute_backend_service and named_port with name "puma" and port "9292" - to google_compute_instance_group. After I have added those items, I have checked, that load balancer started working properly, with either puma on instance 1 disabled or puma on instance 2 disabled. By the way, that would be great to see somehow in application on the screen, which machine is actually working behind the loadbalancer;
+- Spent more than hour, trying to figure out how to add instances, created by count in output.tf.
+
+In general, this load balancing scheme has following point of failure: load balancer itself.
