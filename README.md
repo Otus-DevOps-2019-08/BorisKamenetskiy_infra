@@ -92,7 +92,9 @@ What was done (homework ttrraform-2):
 - source_ranges for ip addresses, from which access to hosts should be available, parameterized. Checked for 0.0.0.0/0, for some random IP and for my own IP. For my own IP there was no access for some reason;
 - stage and prod folders with relevant set of files created. Paths to modules changed accordingly. Access from all IP addresses allowed to stage and only from my IP address - to PROD;
 - unnecessary files removed from terraform directory;
-- storage bucket module from HashiCorp terraform registry used (as compared to gist in homework slides, location should be added to module "storage bucket"). Resource created and visible in google cloud console.
+- storage bucket module from HashiCorp terraform registry used (as compared to gist in homework slides, location should be added to module "storage bucket"). Resource created and visible in google cloud console;
+- added backend.tf with backend configuration to stage and prod so, that terraform.tfstate is stored in the bucket in gcloud;
+- checked how "terraform apply" works without tfstate file.
 
 Issues:
 - in db.tf and app.tf there should be "metadata = {..." and not "metadata {...".The same goes to access_config. Please, fix that in slides;
