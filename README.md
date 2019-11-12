@@ -77,3 +77,27 @@ Error: error executing "/tmp/terraform_1756125471.sh": Process exited with statu
 - Spent more than hour, trying to figure out how to add instances, created by count in output.tf.
 
 In general, this load balancing scheme has following point of failure: load balancer itself.
+
+2019-11-10
+What was done (homework ttrraform-2):
+- tried importing existing infrastructure to terraform;
+- tried using attributes of another resource;
+- tried using packer and terraform together (packer provides images with installed ruby (app.json), mongodb (db.json) and terraform performs deployment based on those images). Created app.tf for vm with ruby and db.tf for vm with mongodb. Variables for image name added;
+- vpc.tf created with "default-allow-ssh" firewall rule. After that only "provide" definition remains in main.tf;
+- configuration applied. Application checked (that they are running) on the corresponding hosts;
+- modules created: for app (in corresponding folder), for db, for vpc. In each folder we have the same set of files: main.tf, variables.tf, outputs.tf. Corresponding variables defined in variables.tf. Outpus.tf changed accordingly;
+- sections to call modules added to main.tf. "terraform get" used to load modules;
+- outputs.tf changed to reflect existing resources;
+- access to created via "terraform apply" resources checked;
+- source_ranges for ip addresses, from which access to hosts should be available, parameterized. Checked for 0.0.0.0/0, for some random IP and for my own IP. For my own IP there was no access for some reason;
+- stage and prod folders with relevant set of files created. Paths to modules changed accordingly. Access from all IP addresses allowed to stage and only from my IP address - to PROD;
+- unnecessary files removed from terraform directory;
+- storage bucket module from HashiCorp terraform registry used (as compared to gist in homework slides, location should be added to module "storage bucket"). Resource created and visible in google cloud console;
+- added backend.tf with backend configuration to stage and prod so, that terraform.tfstate is stored in the bucket in gcloud;
+- checked how "terraform apply" works without tfstate file.
+
+Issues:
+- in db.tf and app.tf there should be "metadata = {..." and not "metadata {...".The same goes to access_config. Please, fix that in slides;
+- output of app_external_ip is empty;
+- there was no access to the created hosts with ruby and mongodb from my own IP address for some reason.   
+
