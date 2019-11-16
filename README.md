@@ -79,7 +79,7 @@ Error: error executing "/tmp/terraform_1756125471.sh": Process exited with statu
 In general, this load balancing scheme has following point of failure: load balancer itself.
 
 2019-11-10
-What was done (homework ttrraform-2):
+What was done (homework terraform-2):
 - tried importing existing infrastructure to terraform;
 - tried using attributes of another resource;
 - tried using packer and terraform together (packer provides images with installed ruby (app.json), mongodb (db.json) and terraform performs deployment based on those images). Created app.tf for vm with ruby and db.tf for vm with mongodb. Variables for image name added;
@@ -101,3 +101,21 @@ Issues:
 - output of app_external_ip is empty;
 - there was no access to the created hosts with ruby and mongodb from my own IP address for some reason.   
 
+2019-11-16
+What was done (homework "ansible-1"):
+- ansible and pip installed;
+- infrastructure created in GCP via terraform stage script;
+- ansible inventory created for appserver (35.235.42.81) and dbserver (35.198.68.63);
+- ckecked how ping module works with both hosts;
+- ansible.cfg, which contains path to the inventory file, remote_user, private_key file, created;
+- command -a uptime checked;
+- inventory file changed to reflect [app] and [db] groups;
+- inventory.yml written;
+- versions of ruby, bundler and mongod checked on the hosts using ansible;
+- commands command, shell, systemd, service tried;
+- module git tried;
+- clone.yml implemented;
+- after "ansible app -m command -a 'rm -rf ~/reddit'" and running playbook once again changed was equal to 1.
+
+Issues:
+- I have tried to implement the dynamic inventory and found gce.py as an example, but, as I don't know Python, it was too difficult for me to understand how it works (taking limited time into account). As I understand the idea of dynamic inventory, I should obtain list of all hosts with their IPs without knowing them beforehand (as it is in static inventory). I ended up with inventory.json for static inventory. If I had to implement the dynamic inventory, I would, probably, use existing modules. 
