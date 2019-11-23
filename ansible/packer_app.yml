@@ -1,14 +1,10 @@
 ---
-- name: Install Ruby & Bundler
+- name: Install Ruby and Bundler
   hosts: all
-  become: true
+  become: false
   tasks:
-  #Install all dependencies in a cycle
-  - name: Install ruby and rubygems and required packages
+  - name: Install a list of packages
     apt:
-      name: "{{ item }}"
+      name: ['ruby-full', 'ruby-bundler', 'build-essential']
       state: present
-    loop:
-      - ruby-full
-      - ruby-bundler
-      - build-essential
+

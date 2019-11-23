@@ -12,7 +12,7 @@
             "image_name": "reddit-db-base-{{timestamp}}",
             "image_family": "reddit-db-base",
             "source_image_family": "{{user `source_image_family_var`}}",
-            "zone": "europe-west3-c",
+            "zone": "europe-west1-b",
             "ssh_username": "appuser",
             "machine_type": "{{user `machine_type_var`}}",
 	    "image_description": "my packer image",
@@ -23,7 +23,7 @@
         }
     ],
     "provisioners": [
-	{
+        {
             "type": "ansible",
             "playbook_file": "ansible/packer_db.yml"
         }

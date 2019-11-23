@@ -3,7 +3,7 @@ plugin: gcp_compute             # name the plugin you want to use (use `ansible-
 projects:
   - infra-253309                # Id of your gcp project
 regions:                        # regions from your project you want to fetch inventory from (you can also use zones instead of regions if you target one or several specific zones)        
-  - europe-west3-c
+  - europe-west1-b
 filters: []
 groups:
   app: "'-app' in name"
