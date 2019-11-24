@@ -169,7 +169,7 @@ What was done (homework ansible-3):
 - variables, required for minimal configuration of jdauphant.nginx, added to stage/group_vars/app and prod/group_vars/app (and port in both cases is set to 9292 - for reddit application);
 - port 80 opened in firewall rule for puma server in modules/app/main.tf;
 - calling of role jdauphant.nginx added to app.yml playbook;
-- applied site.yml playbook - application works now both on port 9292 and on port 80;
+- applied site.yml playbook - application works now both on port 9292 and on port 80 (to check go to 34.76.168.255:9292 or 34.76.168.255:80);
 - file vault.key with some random string created in ansible directory, this very file added to .gitignore;
 - playbook users.yml created in ansible/playbooks/ folder;
 - two files with user credentials (credentials.yml) created in ansible/environments/stage and ansible/environments/prod in accordance with gist;
