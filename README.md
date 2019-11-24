@@ -142,3 +142,42 @@ What was done (homework ansible-2):
 Issues:
 - last bullet from homework (changing provisioning part of app.json and db.json) doesn't work for me because of some ssh-related issue, which seems to be not connected with packer/ansible (which work separately). My repository worked fine for Stanislav Sturov and for the moment I completely can't find, why this doesn't work for me. As I perceive it as blocker, which is not completely connected with the topic of homework itself, I decided to move further with homeworks for now. 
 
+2019-11-24
+What was done (homework ansible-3):
+- folder roles created with sub-folders app and db;
+- role structure applied both to app and db sub-folders;
+- tasks from app.yml and db.yml migrated to roles/app/tasks/main.yml and roles/db/tasks/main.yml, correspondingly;
+- mongodb template copied to roles/db/templates;
+- corresponding handlers transferred from app.yml and db.yml to roles/app/handlers/main.yml and roles/db/handlers/main.yml, correspondingly. src path eliminated, as folder structure in role is taken into account;
+- default variables from app.yml and db.yml created in roles/app/defaults/main.yml and roles/db/defaults/main.yml;
+- db_config.j2 copied from ansible/templates to ansible/roles/app/templates;
+- ansible/files/puma.service copied to ansible/roles/app/files;
+- now in app.yml and db.yml we are only calling corresponding roles (app and db) and we still have variables in these files;
+- everything works fine;
+- directory environments with sub-directories stage and prod created;
+- inventory file copied to stage and prod sub-directories from the previous bullet;
+- ansible.cfg changed and now points to stage inventory file;
+- sub-directories group_vars for sub-directories stage and prod created;
+- variables migrated from app.yml to the new files in sub-directories stage/group_vars/app and prod/group_vars/app;
+- stage/group_vars/all and prod/group_vars/all created with content "env: stage" and "env: prod", default information about environment added to app/defaults/main.yml and db/defaults/main.yml;
+- tasks to show, in which environment we are working, added to app/tasks/main.yml and db/tasks/main.yml;
+- directory ansible is cleaned up: now all playbooks are stored in directory playbooks and everything else (except for ansible.cfg and requirements.txt - in the directory old);
+- ansible.cfg improved - location of roles added, as well as the opportunity to show diff between current output and output before changes;
+- everything works fine on stage (every time, while making any experiments, I have destroyed infrastructure and re-created it using terraform; afterwards I have amended external and internal IP addresses of app and db hosts in inventory and group_vars/app);
+- everything works fine on prod as well;
+- community role jdauphant.nginx installed (information, required in order to fulfil it, was added to the new files requirements.txt in stage and prod directories), jdauphant.nginx added to .gitignore;
+- variables, required for minimal configuration of jdauphant.nginx, added to stage/group_vars/app and prod/group_vars/app (and port in both cases is set to 9292 - for reddit application);
+- port 80 opened in firewall rule for puma server in modules/app/main.tf;
+- calling of role jdauphant.nginx added to app.yml playbook;
+- applied site.yml playbook - application works now both on port 9292 and on port 80;
+- file vault.key with some random string created in ansible directory, this very file added to .gitignore;
+- playbook users.yml created in ansible/playbooks/ folder;
+- two files with user credentials (credentials.yml) created in ansible/environments/stage and ansible/environments/prod in accordance with gist;
+- corresponding files from the previous bullet are successfully encrypted using vault.key;
+- calling of users.yml added to site.yml;
+- checked, that users were created on app host with corresponding password;
+- tried to read encrypted files using ansible-vault edit - everything is as expected.
+
+Issues:
+- permissions to my ansible directory were set by me to 777 and that leaded to the situation, when my ansible.cfg file was ignored. After I changed permissions of ansible directory to 755, everything started working (before I had ssh-related issues).
+
