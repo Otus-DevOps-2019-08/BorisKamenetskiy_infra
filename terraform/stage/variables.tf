@@ -5,7 +5,7 @@ variable project {
 variable region {
   description = "Region"
   # Значение по умолчанию
-  default = "europe-west3"
+  default = "europe-west1"
 }
 variable public_key_path {
   # Описание переменной
@@ -32,7 +32,7 @@ variable private_key_path {
 variable zone {
   description = "Zone"
   # Значение по умолчанию
-  default = "europe-west3-c"
+  default = "europe-west1-b"
 }
 variable inst_count {
   description = "Number of instances"
