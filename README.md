@@ -118,4 +118,27 @@ What was done (homework "ansible-1"):
 - after "ansible app -m command -a 'rm -rf ~/reddit'" and running playbook once again changed was equal to 1.
 
 Issues:
-- I have tried to implement the dynamic inventory and found gce.py as an example, but, as I don't know Python, it was too difficult for me to understand how it works (taking limited time into account). As I understand the idea of dynamic inventory, I should obtain list of all hosts with their IPs without knowing them beforehand (as it is in static inventory). I ended up with inventory.json for static inventory. If I had to implement the dynamic inventory, I would, probably, use existing modules. 
+- I have tried to implement the dynamic inventory and found gce.py as an example, but, as I don't know Python, it was too difficult for me to understand how it works (taking limited time into account). As I understand the idea of dynamic inventory, I should obtain list of all hosts with their IPs without knowing them beforehand (as it is in static inventory). I ended up with inventory.json for static inventory. If I had to implement the dynamic inventory, I would, probably, use existing modules.
+
+2019-11-24
+What was done (homework ansible-2):
+- reddit_app.yml(with app configured) and  mongod.conf.j2 to parameterize Mongod config created;
+- tag db-tag added;
+- handler to restart mongod added;
+- directory files with puma.service created, tasks to copy puma.service and to enable puma added to playbook. Corresponding sections are tagged with app-tag;
+- handler for reloading puma added;
+- template db_config.j2 added in templates directory, database url defined;
+- corresponding task to copy template added to playbook, db_host variable defined;
+- tasks for installation of bundle and cloning git added to playbook with tag deploy-tag;
+- application works (34.76.75.106:9292);
+- tasks of one scenarion transformed into several scenarios - for app, db and deploy in reddit_app2.yml. Tags and other important things are transferred to the definition of scenario;
+- application works;
+- created app.yml, db.yml, deploy.yml. Related parts are taken from reddit_app2.yml. reddit_app.yml is renamed to reddit_app_one_play.yml, reddit_app2.yml - to reddit_app_multiple_plays.yml;
+- site.yml created. There management of all our configuration (app.yml, db.yml, deploy.yml) is defined via import command;
+- application works;
+- dynamic inventory created (see inventory.compute.gcp.yml), groups added, service account key added. Checked, that relevant IPs of app and db machines are propagated to ansible inventory and used in playbooks. Didn't take time to propagate internal IP address of db machine there. Checked, that application works fine with dynamic inventory file;
+- packer_app.yml (install Ruby and Bundler) and packer_db.yml (add MongoDB, install it and enable service)  created to change provisioning part in packer/app.json and packer/db.json.
+
+Issues:
+- last bullet from homework (changing provisioning part of app.json and db.json) doesn't work for me because of some ssh-related issue, which seems to be not connected with packer/ansible (which work separately). My repository worked fine for Stanislav Sturov and for the moment I completely can't find, why this doesn't work for me. As I perceive it as blocker, which is not completely connected with the topic of homework itself, I decided to move further with homeworks for now. 
+
